@@ -6,6 +6,7 @@ import ticket_booking.Entities.Train;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -16,15 +17,46 @@ public class TrainService {
 
     private List<Train> trainList;
     private ObjectMapper objectMapper = new ObjectMapper();
-    private static final String TRAIN_DB_PATH = "../localDB/trains.json";
+    private static final String TRAIN_DB_PATH = "app/src/main/java/ticket_booking/localDb/trains.json";
 
     public TrainService() throws IOException {
         File trains = new File(TRAIN_DB_PATH);
-        trainList = objectMapper.readValue(trains, new TypeReference<List<Train>>() {});
+
+        if (trains.exists()) {
+            try {
+                byte[] fileBytes = java.nio.file.Files.readAllBytes(trains.toPath());
+            } catch (Exception e) {
+                System.out.println("Error reading file content: " + e.getMessage());
+            }
+        }
+
+        try {
+            trainList = objectMapper.readValue(trains, new TypeReference<List<Train>>() {});
+        } catch (Exception e) {
+            System.out.println("Error parsing trains: " + e.getMessage());
+            e.printStackTrace();
+            trainList = new ArrayList<>();
+        }
     }
 
+
     public List<Train> searchTrains(String source, String destination) {
-        return trainList.stream().filter(train -> validTrain(train, source, destination)).collect(Collectors.toList());
+
+
+        List<Train> results = new ArrayList<>();
+
+        for (Train train : trainList) {
+
+
+            boolean isValid = validTrain(train, source, destination);
+
+
+            if (isValid) {
+                results.add(train);
+            }
+        }
+
+        return results;
     }
 
     public void addTrain(Train newTrain) {
@@ -62,13 +94,30 @@ public class TrainService {
     }
 
     private boolean validTrain(Train train, String source, String destination) {
-        List<String> stationOrder = train.getStations();
+        List<String> stations = train.getStations();
+        if (stations == null || stations.isEmpty()) {
+            return false;
+        }
 
-        int sourceIndex = stationOrder.indexOf(source.toLowerCase());
-        int destinationIndex = stationOrder.indexOf(destination.toLowerCase());
+        String lowerSource = source.toLowerCase();
+        String lowerDest = destination.toLowerCase();
 
-        return sourceIndex != -1 && destinationIndex != -1 && sourceIndex < destinationIndex;
+        int sourceIndex = -1;
+        int destIndex = -1;
+
+        for (int i = 0; i < stations.size(); i++) {
+            String station = stations.get(i).toLowerCase();
+            if (station.equals(lowerSource)) {
+                sourceIndex = i;
+            }
+            if (station.equals(lowerDest)) {
+                destIndex = i;
+            }
+        }
+
+        return (sourceIndex != -1 && destIndex != -1 && sourceIndex < destIndex);
     }
 
-    
+
+
 }

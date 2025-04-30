@@ -1,19 +1,34 @@
 package ticket_booking.Entities;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class User {
+
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("password")
     private String password;
-    private String hashPassword;
+
+    @JsonProperty("hashed_password")
+    private String hashedPassword;
+
+    @JsonProperty("tickets_booked")
     private List<Ticket> ticketsBooked;
 
+    @JsonProperty("user_id")
     private String userId;
+    public User() {
 
+    }
     public User(String name, String password, String hashPassword, List<Ticket> ticketsBooked, String userId){
         this.name= name;
         this.password=password;
-        this.hashPassword=hashPassword;
+        this.hashedPassword=hashPassword;
         this.ticketsBooked=ticketsBooked;
         this.userId=userId;
     }
@@ -27,18 +42,24 @@ public class User {
     }
 
     public String getHashPassword(){
-        return hashPassword;
+        return hashedPassword;
     }
 
     public String getPassword(){
         return password;
     }
 
-    public void printTickets(){
-        for(int i=0; i<ticketsBooked.size();i++){
-            System.out.println(ticketsBooked.get(i).getTicketInfo());
+    public void printTickets() {
+        if (ticketsBooked == null || ticketsBooked.isEmpty()) {
+            System.out.println("No bookings found.");
+            return;
+        }
+
+        for (Ticket ticket : ticketsBooked) {
+            System.out.println(ticket.getTicketInfo());
         }
     }
+
 
     public String getUserId(){
         return userId;
@@ -48,11 +69,11 @@ public class User {
     }
 
     public String getHashedPassword() {
-        return hashPassword;
+        return hashedPassword;
     }
 
     public void setHashedPassword(String hashPassword) {
-        this.hashPassword = hashPassword;
+        this.hashedPassword = hashPassword;
     }
 
     public void setTicketsBooked(List<Ticket> ticketsBooked){

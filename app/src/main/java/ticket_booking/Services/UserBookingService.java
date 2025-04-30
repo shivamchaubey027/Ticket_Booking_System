@@ -1,23 +1,31 @@
 package ticket_booking.Services;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+
+import com.fasterxml.jackson.databind.SerializationFeature;
+import ticket_booking.Entities.Ticket;
 import ticket_booking.Entities.Train;
 import ticket_booking.Entities.User;
 import ticket_booking.util.UserServiceUtil;
 public class UserBookingService{
-    
-    private ObjectMapper objectMapper = new ObjectMapper();
+
+    private ObjectMapper objectMapper = new ObjectMapper()
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+            .enable(SerializationFeature.INDENT_OUTPUT);
+
+
 
     private List<User> userList;
 
     private User user;
 
-    private final String USER_FILE_PATH = "app/src/main/java/ticket/booking/localDb/users.json";
+    private final String USER_FILE_PATH = "app/src/main/java/ticket_booking/localDb/users.json";
 
     public UserBookingService(User user) throws IOException {
         this.user = user;
@@ -32,14 +40,20 @@ public class UserBookingService{
         userList = objectMapper.readValue(new File(USER_FILE_PATH), new TypeReference<List<User>>() {});
     }
 
-    
+
 
     public Boolean loginUser(){
         Optional<User> foundUser = userList.stream().filter(user1 -> {
-            return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
+            boolean nameMatch = user1.getName().equals(user.getName());
+            boolean passwordMatch = UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
+
+
+            return nameMatch && passwordMatch;
         }).findFirst();
+
         return foundUser.isPresent();
     }
+
 
     public Boolean signUp(User user1){
         try{
@@ -56,16 +70,17 @@ public class UserBookingService{
         objectMapper.writeValue(usersFile, userList);
     }
 
-    public void fetchBookings(){
-        Optional<User> userFetched = userList.stream().filter(user1 -> {
-            return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
-        }).findFirst();
-        if(userFetched.isPresent()){
-            userFetched.get().printTickets();
+    public void fetchBookings() {
+        if (user.getTicketsBooked() == null || user.getTicketsBooked().isEmpty()) {
+            System.out.println("No bookings found.");
+        } else {
+            user.printTickets();
         }
     }
 
-         public Boolean cancelBooking(String ticketId){
+
+
+    public Boolean cancelBooking(String ticketId){
     
         Scanner s = new Scanner(System.in);
         System.out.println("Enter the ticket id to cancel");
@@ -113,6 +128,20 @@ public class UserBookingService{
                     seats.get(row).set(seat, 1);
                     train.setSeats(seats);
                     trainService.addTrain(train);
+
+                    Ticket ticket = new Ticket(
+                            UUID.randomUUID().toString(),
+                            user.getUserId(),
+                            train.getStations().get(0),
+                            train.getStations().get(train.getStations().size() - 1),
+                            "2025-05-01",
+                            train
+
+
+                    );
+
+                    user.getTicketsBooked().add(ticket);
+                    saveUserListToFile();
                     return true; 
                 } else {
                     return false;

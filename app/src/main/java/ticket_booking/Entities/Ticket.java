@@ -1,13 +1,28 @@
 package ticket_booking.Entities;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public class Ticket {
+    @JsonProperty("ticket_id")
     private String ticketId;
+
+    @JsonProperty("user_id")
     private String userId;
+
+    @JsonProperty("source")
     private String source;
+
+    @JsonProperty("destination")
     private String destination;
+
+    @JsonProperty("date_of_travel")
     private String dateOfTravel;
 
+    @JsonProperty("train")
     private Train train;
-    
+
+    public Ticket() {
+    }
     public Ticket(String ticketId, String userId, String source, String destination, String dateOfTravel, Train train){
         this.ticketId=ticketId;
         this.userId=userId;
