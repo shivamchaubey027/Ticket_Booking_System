@@ -5,32 +5,4 @@
   "hashed_password" : "$2a$12$XntofCsiwbNP8Gm/KcHkz.jU2RwfcbDgSBR.cVq7Snne/L18OFrCO",
   "tickets_booked" : [ ],
   "user_id" : "108f7269-ed9b-480b-bf83-2d6ab7c59650"
-}, {
-  "hashPassword" : "$2a$12$YZ08XUnvk85ZxIpn4Kc8NOmT/hM9ReZPPnfFGrHRYFpGsNM3S27Le",
-  "name" : "shivamchaubey",
-  "password" : "Admin@2573",
-  "hashed_password" : "$2a$12$YZ08XUnvk85ZxIpn4Kc8NOmT/hM9ReZPPnfFGrHRYFpGsNM3S27Le",
-  "tickets_booked" : [ ],
-  "user_id" : "669eacac-6900-4fa5-bb78-50e1d91af2cc"
-}, {
-  "hashPassword" : "$2a$12$zOGpqdFU9./w/arbR8y4pOnexHe1omH7a8YEVFIufRYLGv0alChii",
-  "name" : "shivamchaubey027",
-  "password" : "Admin@12345",
-  "hashed_password" : "$2a$12$zOGpqdFU9./w/arbR8y4pOnexHe1omH7a8YEVFIufRYLGv0alChii",
-  "tickets_booked" : [ ],
-  "user_id" : "fa64e457-f43c-4903-84bb-6299e1fd874e"
-}, {
-  "hashPassword" : "$2a$12$d03BO9nCaDgz24Jl.f.hdOoIGo6.05V2EH5xStGSIBj4lKILgLLMm",
-  "name" : "shivam",
-  "password" : "Admin",
-  "hashed_password" : "$2a$12$d03BO9nCaDgz24Jl.f.hdOoIGo6.05V2EH5xStGSIBj4lKILgLLMm",
-  "tickets_booked" : [ ],
-  "user_id" : "e25ec476-735e-4427-b4fc-2f427e3ea5e1"
-}, {
-  "hashPassword" : "$2a$12$kM8LlB0YpEolJFAOeA0Aqu6etkkA4YbO0QliQGaQ73M1mB9.tKDdq",
-  "name" : "shivamchaubey2004",
-  "password" : "Admin@12345",
-  "hashed_password" : "$2a$12$kM8LlB0YpEolJFAOeA0Aqu6etkkA4YbO0QliQGaQ73M1mB9.tKDdq",
-  "tickets_booked" : [ ],
-  "user_id" : "c7b37492-9f67-4dec-9fa7-39295cd2fd44"
-} ]
+}]
