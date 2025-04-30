@@ -1,7 +1,7 @@
 
 # Java Train Booking System
 
-This is a console-based **train booking system** made in Java from scratch. I started building this project while learning Java itself — so this app became my way of learning the language, exploring concepts like object-oriented programming, file handling, and basic service structures.
+This is a console-based **train booking system** made in Java from scratch. I started building this project while learning Java itself so this app became my way of learning the language, exploring concepts like object-oriented programming, file handling, and basic service structures.
 
 ---
 
@@ -16,7 +16,7 @@ At first, I didn't know how to structure things. Slowly, I began learning:
 - how to hash passwords securely using BCrypt
 - how to manage data like trains, seats, users, and tickets through logic
 
-While building this, I not only understood **Java syntax**, but also **real-world application flow** — signup, login, storing state, and reading/updating files.
+While building this, I not only understood **Java syntax**, but also **real-world application flow**  signup, login, storing state, and reading/updating files.
 
 ---
 
@@ -101,7 +101,6 @@ This one project helped me understand:
 
 ## Final Note
 
-This was my first full project in Java and I'm proud of it. It's not perfect, but it works end-to-end. Now that the system is finally working — I understand both **Java syntax** and **how to build real applications**.
+This was my first full project in Java and I'm proud of it. It's not perfect, but it works end-to-end. Now that the system is finally working, I understand both **Java syntax** and **how to build real applications**.
 
 ```
-
